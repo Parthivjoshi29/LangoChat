@@ -71,17 +71,6 @@ VITE_STREAM_API_KEY=your_stream_api_key
 npm run dev
 ```
 
-## Deployment
-
-### Railway (Recommended)
-1. Connect your GitHub repository to Railway
-2. Set environment variables in Railway dashboard
-3. Deploy automatically
-
-### Vercel + Railway
-1. Deploy frontend to Vercel
-2. Deploy backend to Railway
-3. Update FRONTEND_URL in Railway environment variables
 
 ## Environment Variables
 
