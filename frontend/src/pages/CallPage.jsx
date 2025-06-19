@@ -36,12 +36,6 @@ const CallPage = () => {
     enabled: !!authUser,
     retry: 3,
     retryDelay: 1000,
-    onSuccess: (data) => {
-      console.log("Video token fetched successfully:", data);
-    },
-    onError: (error) => {
-      console.error("Failed to fetch video token:", error);
-    },
   });
 
   useEffect(() => {
@@ -56,7 +50,6 @@ const CallPage = () => {
       }
 
       try {
-        console.log("Initializing Stream video client...");
         setError(null);
 
         const user = {
@@ -65,26 +58,18 @@ const CallPage = () => {
           image: authUser.profilePic,
         };
 
-        console.log("Creating video client with:", { apiKey: STREAM_API_KEY, userId: user.id });
-
         const videoClient = new StreamVideoClient({
           apiKey: STREAM_API_KEY,
           user,
           token: videoTokenData.token,
         });
 
-        console.log("Creating call instance with ID:", callId);
         const callInstance = videoClient.call("default", callId);
-
-        console.log("Joining call...");
         await callInstance.join({ create: true });
-
-        console.log("Joined call successfully");
 
         setClient(videoClient);
         setCall(callInstance);
       } catch (error) {
-        console.error("Error joining call:", error);
         setError(error.message || "Could not join the call");
         toast.error("Could not join the call. Please try again.");
       } finally {
@@ -97,7 +82,6 @@ const CallPage = () => {
     // Cleanup function
     return () => {
       if (client) {
-        console.log("Cleaning up video client...");
         client.disconnectUser();
       }
     };
